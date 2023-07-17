@@ -28,7 +28,7 @@ abstract class BaseActivity<BINDING: ViewBinding>(
     val session: SessionManager
         get() = _session
 
-    private var pageTitle = ""
+    var pageTitle = ""
 
     abstract val toolbarBinding: AppToolbarBinding?
 
@@ -48,9 +48,6 @@ abstract class BaseActivity<BINDING: ViewBinding>(
 
     private fun initToolbar() {
         if (toolbarBinding != null) {
-            observe(toolbarViewModel.title) {
-                toolbarBinding?.toolbarTitle?.text = it
-            }
             observe(toolbarViewModel.isBackButtonVisible) {
                 toolbarBinding?.toolbarBtn?.visibility = if (it) View.VISIBLE else View.GONE
             }
@@ -58,6 +55,10 @@ abstract class BaseActivity<BINDING: ViewBinding>(
                 super.getOnBackPressedDispatcher().onBackPressed()
                 Animator.animateSlideDown(this)
             }
+        }
+        observe(toolbarViewModel.title) {
+            toolbarBinding?.toolbarTitle?.text = it
+            pageTitle = it
         }
     }
 

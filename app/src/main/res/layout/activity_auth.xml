@@ -6,4 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".view.auth.AuthActivity">
 
+    <LinearLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/authContainerView">
+
+        <TextView
+            android:id="@+id/tab_login"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_bg_main_5"
+            android:fontFamily="@font/cubano"
+            android:textColor="@color/static_white"
+            android:textSize="@dimen/_13ssp"
+            android:text="LOGIN"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tab_join"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/cubano"
+            android:textColor="@color/colorDarkGrey"
+            android:background="@drawable/ripple_bg_white_5"
+            android:textSize="@dimen/_13ssp"
+            android:text="JOIN NOW"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/authContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabs"
+        app:navGraph="@navigation/auth_graph" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
