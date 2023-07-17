@@ -15,6 +15,8 @@ import com.saadahmedsoft.base.helper.navigate
 import com.saadahmedsoft.base.helper.snackBar
 import com.saadahmedsoft.base.helper.toast
 import com.saadahmedsoft.base.viewmodel.ToolbarViewModel
+import com.saadahmedsoft.springbootecommerce.utils.ApiCall
+import retrofit2.Call
 
 abstract class BaseFragment<BINDING: ViewBinding>(
     private val bindingInflater: (inflater: LayoutInflater) -> BINDING
@@ -108,5 +110,17 @@ abstract class BaseFragment<BINDING: ViewBinding>(
 
     fun onBackPressed() {
         requireActivity().onBackPressedDispatcher.onBackPressed()
+    }
+
+    fun <T> Call<T>.getResponse(listener: ApiCall.OnResponseGet<T>) {
+        ApiCall.enqueue(requireContext(), this) {
+            listener.onSuccessful(it)
+        }
+    }
+
+    fun <T> Call<T>.getNoProgressResponse(listener: ApiCall.OnResponseGet<T>) {
+        ApiCall.enqueueNoProgress(requireContext(), this) {
+            listener.onSuccessful(it)
+        }
     }
 }
