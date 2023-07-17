@@ -1,5 +1,6 @@
 package com.saadahmedsoft.springbootecommerce.view.auth.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.saadahmedsoft.springbootecommerce.api.RetroInstance
 import com.saadahmedsoft.springbootecommerce.base.BaseFragment
 import com.saadahmedsoft.springbootecommerce.databinding.FragmentLoginBinding
 import com.saadahmedsoft.springbootecommerce.view.auth.AuthActivity
+import com.saadahmedsoft.springbootecommerce.view.dashboard.DashboardActivity
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
     override val title: String
@@ -25,7 +27,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             body.addProperty("password", binding.etPassword.getString())
 
             RetroInstance.instance.login(body).getResponse {
-                it.message!!.shortToast()
+                it.status?.let { loginResponseStatus ->
+                    if (loginResponseStatus) {
+                        session.setBearerToken(it.token!!)
+                        val i = Intent(requireContext(), DashboardActivity::class.java)
+                        requireContext().startActivity(i)
+                        requireActivity().finish()
+                    }
+                    else it.message.shortSnackBar()
+                }
             }
         }
     }

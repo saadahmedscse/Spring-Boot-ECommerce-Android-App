@@ -1,6 +1,7 @@
 package com.saadahmedsoft.springbootecommerce.api
 
 import com.google.gson.JsonObject
+import com.saadahmedsoft.springbootecommerce.services.model.CommonResponse
 import com.saadahmedsoft.springbootecommerce.services.model.LoginResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -12,4 +13,8 @@ interface ApiService {
     @Headers("Accept: application/json", "Content-Type: application/json")
     @POST("login")
     fun login(@Body jsonObject: JsonObject): Call<LoginResponse>
+
+    @Headers("Accept: application/json", "Content-Type: application/json")
+    @POST("sign-up")
+    fun createAccount(@Body jsonObject: JsonObject): Call<CommonResponse>
 }
