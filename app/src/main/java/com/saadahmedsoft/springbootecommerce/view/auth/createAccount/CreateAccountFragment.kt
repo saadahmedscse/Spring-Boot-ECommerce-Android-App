@@ -22,7 +22,7 @@ class CreateAccountFragment : BaseFragment<FragmentCreateAccountBinding>(Fragmen
             body.addProperty("firstName", binding.etFirstName.getString())
             body.addProperty("lastName", binding.etLastName.getString())
             body.addProperty("email", binding.etEmail.getString())
-            body.addProperty("phone", binding.etPhone.getString())
+            body.addProperty("phone", binding.etPhone.getString().ifBlank { null })
             body.addProperty("password", binding.etPassword.getString())
             body.addProperty("confirmPassword", binding.etConfirmPassword.getString())
 
